@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-image: url("../images/povo.jfif");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  height: 90px;
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  border-bottom: 5px solid #ffd700;
+}
+
+.panel {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.square {
+  height: 150px;
+  border: 1px solid black;
+  width: 150px;
+}
+
+.enemy {
+  background-image: url("../images/bozo.png");
+  background-size:cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-color: #ff0000; */
+}
+
+.menu-time h2:nth-child(2),
+.menu-score h2:nth-child(2) {
+  margin-top: 10px;
+}
