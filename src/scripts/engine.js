@@ -24,10 +24,8 @@ const state = {
 function countDown() {
   state.values.currentTime--;
   state.view.timeLeft.textContent = state.values.currentTime;
-  if (state.values.currentTime <= 0 || state.values.lives <= 0) {
-    alert('Game Over! O seu resultado foi: ' + state.values.result);
-    clearInterval(state.actions.countDownTimerId);
-    clearInterval(state.actions.timerId);
+  if (state.values.currentTime === 0 || state.values.lives === 0) {
+    endGame();
   }
 }
 
@@ -47,7 +45,7 @@ function randomSquare() {
   state.values.hitPosition = randomSquare.id;
 }
 
-function addListnerHitBox() {
+function addListenerToHitBox() {
   state.view.squares.forEach((square) => {
     square.addEventListener('mousedown', () => {
       if (square.id === state.values.hitPosition) {
@@ -56,7 +54,7 @@ function addListnerHitBox() {
         state.values.hitPosition = null;
         playSound('boing');
       } else {
-        playSound('invalid')
+        playSound('invalid');
         state.values.lives--;
         state.view.lives.textContent = state.values.lives;
       }
@@ -64,8 +62,32 @@ function addListnerHitBox() {
   });
 }
 
+function endGame() {
+  alert('Game Over! O seu resultado foi: ' + state.values.result);
+  resetGame();
+}
+
+function resetGame() {
+  clearInterval(state.values.countDownTimerId);
+  clearInterval(state.actions.timerId);
+
+  // Resetar valores iniciais
+  state.values.currentTime = 60;
+  state.values.lives = 3;
+  state.values.result = 0;
+
+  // Atualizar elementos no DOM
+  state.view.timeLeft.textContent = state.values.currentTime;
+  state.view.lives.textContent = state.values.lives;
+  state.view.score.textContent = state.values.result;
+
+  // Reiniciar temporizadores
+  state.values.countDownTimerId = setInterval(countDown, 1000);
+  state.actions.timerId = setInterval(randomSquare, 1000);
+}
+
 function main() {
-  addListnerHitBox();
+  addListenerToHitBox();
 }
 
 main();
